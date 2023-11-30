@@ -4,17 +4,17 @@
       <div class="row justify-content-center">
         <div class="col-12 my-div d-flex justify-content-center">
           <div v-for="(rows, rowsIndex) in biArray" :key="rowsIndex">
-            <div class="disc" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="redBlueSwitch = !redBlueSwitch, insertDisc(rowsIndex, colsIndex)"
-             :class="{'disc-blue': cols === 1, 'disc-red': cols === 0 }" ></div>
+            <div class="disk" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="insertDisk(rowsIndex, colsIndex)"
+             :class="{'disk-blue': cols === 1, 'disk-red': cols === 0 }" ></div>
           </div>
         </div>
         <div v-if="redBlueSwitch" class="d-flex justify-content-center align-items-center blue">
           <p>Blue Turn </p>
-          <div class="disc-blue"></div>
+          <div class="disk-blue"></div>
         </div>
         <div class="d-flex justify-content-center align-items-center red" v-else>
           <p>Red Turn </p>
-          <div class="disc-red"></div>
+          <div class="disk-red"></div>
         </div>
       </div>
     </div>
@@ -42,17 +42,33 @@ import { store } from './assets/data/store'
             this.biArray[i][j] = null
           }
         }
-        this.biArray[0][5] = 1
         console.log(this.biArray)
       },
-      insertDisc(x, y){
-        // if(this.biArray[disc][item] !== 1 || this.biArray[disc][item] !== 0){
+      diskVerticalCheck(x, z){
+        if(this.biArray[x][this.biArray[x].length - 1] === null){
+              this.biArray[x][this.biArray[x].length - 1] = z
+            }else if(this.biArray[x][this.biArray[x].length - 2] === null){
+              this.biArray[x][this.biArray[x].length - 2] = z
+            }else if(this.biArray[x][this.biArray[x].length - 3] === null){
+              this.biArray[x][this.biArray[x].length - 3] = z
+            }else if(this.biArray[x][this.biArray[x].length - 4] === null){
+              this.biArray[x][this.biArray[x].length - 4] = z
+            }else if(this.biArray[x][this.biArray[x].length - 5] === null){
+              this.biArray[x][this.biArray[x].length - 5] = z
+            }else if(this.biArray[x][this.biArray[x].length - 6] === null){
+              this.biArray[x][this.biArray[x].length - 6] = z
+            }
+            this.redBlueSwitch = !this.redBlueSwitch  
+        },  
+      insertDisk(x, y){
+        if(this.biArray[x][y] !== 1 && this.biArray[x][y] !== 0){
           if(this.redBlueSwitch){
-          this.biArray[x][y] = 1
-          } else {
-          this.biArray[x][y] = 0
-          }  
-        // }   
+            this.diskVerticalCheck(x, 1)
+            
+          }else{
+            this.diskVerticalCheck(x, 0)
+          }
+        }    
       }
     },
     created(){
@@ -71,7 +87,7 @@ import { store } from './assets/data/store'
 
   
 }
-.disc{
+.disk{
     width: 75px;
     height: 75px;
     border-radius: 50%;
@@ -79,7 +95,7 @@ import { store } from './assets/data/store'
     background-color: lightgray;
     margin: 5px;
   }
-  .disc-blue{
+  .disk-blue{
     width: 75px;
     height: 75px;
     border-radius: 50%;
@@ -87,7 +103,7 @@ import { store } from './assets/data/store'
     background-color: rgb(14, 14, 140);
     margin: 5px;
   }
-  .disc-red{
+  .disk-red{
     width: 75px;
     height: 75px;
     border-radius: 50%;

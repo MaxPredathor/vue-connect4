@@ -22,12 +22,10 @@
 </template>
 
 <script>
-import { store } from './assets/data/store'
   export default {
     name: 'App',
     data(){
       return{
-        store,
         rows: 8,
         cols: 6,
         biArray: [],

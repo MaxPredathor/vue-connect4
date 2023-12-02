@@ -31,7 +31,7 @@ import { store } from './assets/data/store'
         rows: 8,
         cols: 6,
         biArray: [],
-        redBlueSwitch: true
+        redBlueSwitch: true,
       }
     },
     methods:{
@@ -45,31 +45,42 @@ import { store } from './assets/data/store'
         console.log(this.biArray)
       },
       diskVerticalCheck(x, z){
-        if(this.biArray[x][this.biArray[x].length - 1] === null){
-              this.biArray[x][this.biArray[x].length - 1] = z
-            }else if(this.biArray[x][this.biArray[x].length - 2] === null){
-              this.biArray[x][this.biArray[x].length - 2] = z
-            }else if(this.biArray[x][this.biArray[x].length - 3] === null){
-              this.biArray[x][this.biArray[x].length - 3] = z
-            }else if(this.biArray[x][this.biArray[x].length - 4] === null){
-              this.biArray[x][this.biArray[x].length - 4] = z
-            }else if(this.biArray[x][this.biArray[x].length - 5] === null){
-              this.biArray[x][this.biArray[x].length - 5] = z
-            }else if(this.biArray[x][this.biArray[x].length - 6] === null){
-              this.biArray[x][this.biArray[x].length - 6] = z
-            }
-            this.redBlueSwitch = !this.redBlueSwitch  
-        },  
+        for (let i = this.biArray[x].length - 1; i >= 0; i--) {
+          if (this.biArray[x][i] === null) {
+            this.biArray[x][i] = z;
+            break;
+          }
+        }
+        this.redBlueSwitch = !this.redBlueSwitch;
+        // if(this.biArray[x][this.biArray[x].length - 1] === null){
+        //   this.biArray[x][this.biArray[x].length - 1] = z
+        // }else if(this.biArray[x][this.biArray[x].length - 2] === null){
+        //   this.biArray[x][this.biArray[x].length - 2] = z
+        // }else if(this.biArray[x][this.biArray[x].length - 3] === null){
+        //   this.biArray[x][this.biArray[x].length - 3] = z
+        // }else if(this.biArray[x][this.biArray[x].length - 4] === null){
+        //   this.biArray[x][this.biArray[x].length - 4] = z
+        // }else if(this.biArray[x][this.biArray[x].length - 5] === null){
+        //   this.biArray[x][this.biArray[x].length - 5] = z
+        // }else if(this.biArray[x][this.biArray[x].length - 6] === null){
+        //   this.biArray[x][this.biArray[x].length - 6] = z
+        // }
+        // this.redBlueSwitch = !this.redBlueSwitch  
+      },  
       insertDisk(x, y){
         if(this.biArray[x][y] !== 1 && this.biArray[x][y] !== 0){
           if(this.redBlueSwitch){
             this.diskVerticalCheck(x, 1)
-            
           }else{
             this.diskVerticalCheck(x, 0)
           }
         }    
-      }
+      },
+      // gameWin(){
+      //   if(){
+          
+      //   }
+      // }
     },
     created(){
       this.arrayCreation()

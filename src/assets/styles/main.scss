@@ -6,3 +6,12 @@ $fa-font-path: '../webfonts';
 @import '@fortawesome/fontawesome-free/scss/solid.scss'; 
 @import '@fortawesome/fontawesome-free/scss/regular.scss'; 
 @import '@fortawesome/fontawesome-free/scss/brands.scss';
+
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+
+body{
+    background-image: url(/images/parquet3.jpg);
+    font-family: 'Nunito', sans-serif;
+}

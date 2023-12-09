@@ -1,6 +1,9 @@
 <template>
   <main>
     <div class="container">
+      <h1 class="text-center fw-bold mt-5">
+        <span style="color:rgb(14, 14, 140)">Conn</span><span style="color:rgb(175, 24, 24)">ect </span><span style="color: #0a0b0c;">4</span>
+      </h1>
       <div class="row justify-content-center">
         <div class="col-12 my-div d-flex justify-content-center">
           <div v-for="(rows, rowsIndex) in biArray" :key="rowsIndex">
@@ -8,13 +11,17 @@
              :class="{'disk-blue': cols === 1, 'disk-red': cols === 0 }" ></div>
           </div>
         </div>
-        <div v-if="redBlueSwitch" class="d-flex justify-content-center align-items-center blue">
-          <p>Blue Turn </p>
-          <div class="disk-blue"></div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center red" v-else>
-          <p>Red Turn </p>
-          <div class="disk-red"></div>
+      </div>  
+      <div class="row">  
+        <div class="turnCard m-auto">
+          <div v-if="redBlueSwitch" class="d-flex justify-content-center align-items-center blue">
+            <p>Blue Turn </p>
+            <div class="disk-blue"></div>
+          </div>
+          <div class="d-flex justify-content-center align-items-center red" v-else>
+            <p>Red Turn </p>
+            <div class="disk-red"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -88,20 +95,21 @@
 
 <style lang="scss" scoped>
 .my-div{
-  width: 70%;
-  background-color: #a6a6a6;
-  border-radius: 2em;
+  width: 55%;
+  background-color: #313131;
+  // border-radius: 1.5em;
   margin: 40px 0;
   padding: 20px;
-
-  
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
 }
 .disk{
     width: 75px;
     height: 75px;
     border-radius: 50%;
-    border: 5px solid grey;
-    background-color: lightgray;
+    // border: 5px solid grey;
+    // border: 2px solid #ba8a2a;
+    background-color: #0a0b0c;
     margin: 5px;
   }
   .disk-blue{
@@ -135,6 +143,14 @@
       font-weight: bold;
       font-size: 30px;
     }
+  }
+  .turnCard{
+    width: 22%;
+    background-color: #313131;
+    margin: 40px 0;
+    padding: 20px;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
   }
 
 </style>

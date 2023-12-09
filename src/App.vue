@@ -7,7 +7,7 @@
       <div class="row justify-content-center">
         <div class="col-12 my-div d-flex justify-content-center">
           <div v-for="(rows, rowsIndex) in biArray" :key="rowsIndex">
-            <div class="disk" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="insertDisk(rowsIndex, colsIndex)"
+            <div class="disk" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="insertDisk(rowsIndex, colsIndex), gameWin()"
              :class="{'disk-blue': cols === 1, 'disk-red': cols === 0 }" ></div>
           </div>
         </div>
@@ -81,11 +81,16 @@
           }
         }    
       },
-      // gameWin(){
-      //   if(){
-          
-      //   }
-      // }
+      gameWin(){
+        for(let i = 0; i < this.rows; i++){
+          for(let j = 0; j <= this.cols - 4; j++){
+            const disk = this.biArray[i][j]
+            if(disk !== null && disk === this.biArray[i][j + 1] && disk === this.biArray[i][j + 2] && disk === this.biArray[i][j + 3]){
+            console.log('hai vinto')  
+            }
+          }
+        }
+      },
     },
     created(){
       this.arrayCreation()

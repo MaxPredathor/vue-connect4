@@ -4,17 +4,25 @@
       <h1 class="text-center fw-bold mt-5" style="font-size: 3.5em;">
         <span style="color:rgb(14, 14, 140)">Conn</span><span style="color:rgb(175, 24, 24)">ect </span><span style="color: #0a0b0c;">4</span>
       </h1>
-      <div class="win" v-show="gameEnd">
+      <button class="btn btn-dark hide text-light" v-show="hide" @click="hide = false">Show</button>
+      <div class="win" :class="{'d-none': hide}" v-show="gameEnd">
         <h1 class="text-success fw-bold p-2">Congratulatios!</h1>
         <div v-if="gameWinner === 1">
           <h1 class="text-center" style="color:rgb(14, 14, 140)">Blue Wins</h1>
           <p class="moves">With {{blueCounter}} Moves</p>
-          <button class="btn my-btn" @click="reset">Play Again</button>
+          <div>
+            <button class="btn my-btn" @click="reset">Play Again</button>
+            <button class="btn btn-dark text-light" @click="hide = true">Hide</button>
+          </div>
+          
         </div>
         <div v-else>
           <h1 class="text-center" style="color:rgb(175, 24, 24)">Red Wins</h1>
           <p class="moves">With {{redCounter}} Moves</p>
-          <button class="btn my-btn" @click="reset">Play Again</button>
+          <div>
+            <button class="btn my-btn" @click="reset">Play Again</button>
+            <button class="btn btn-dark text-light" @click="hide = true">Hide</button>
+          </div>
         </div>
       </div>
       <div class="row justify-content-center">
@@ -54,9 +62,14 @@
         gameWinner: null,
         blueCounter: 0,
         redCounter: 0,
+        hide: false,
       }
     },
     methods:{
+      /**
+       * Initializes a new array with null values.
+       * Creates a bi-dimensional array with the specified number of rows and columns.
+       */
       arrayCreation(){
         for(let i = 0; i < this.rows; i++){
           this.biArray[i] = []
@@ -66,6 +79,11 @@
         }
         console.log(this.biArray)
       },
+      /**
+       Adds the given value to the last available slot in the specified column of the bi-dimensional array.
+       * If the column is full, the value is not added.
+       * Updates the value of the redBlueSwitch property.
+       */
       diskVerticalCheck(x, z){
         for (let i = this.biArray[x].length - 1; i >= 0; i--) {
           if (this.biArray[x][i] === null) {
@@ -88,7 +106,10 @@
         //   this.biArray[x][this.biArray[x].length - 6] = z
         // }
         // this.redBlueSwitch = !this.redBlueSwitch  
-      },  
+      },
+      /**
+       * * Insert a disk into the game board at the specified position.
+       */
       insertDisk(x, y){
         if(this.biArray[x][y] !== 1 && this.biArray[x][y] !== 0){
           if(this.redBlueSwitch){
@@ -100,6 +121,10 @@
           }
         }    
       },
+      /**
+       * Check (vertically, horizontally and diagonally) if a player has won the game.
+       * If a player has won, the gameEnd property is set to true.
+       */
       gameWin(){
         // Check horizontally
         for(let i = 0; i < this.rows; i++){
@@ -145,6 +170,9 @@
       endGame(){
         this.gameEnd = true
       },
+      /**
+       * Reset the game.
+       */
       reset(){
         this.arrayCreation()
         this.gameEnd = false
@@ -152,6 +180,7 @@
         this.redCounter = 0
         this.blueCounter = 0
         this.redBlueSwitch = true
+        this.hide = false
       }
     },
     created(){
@@ -174,8 +203,6 @@
     width: 75px;
     height: 75px;
     border-radius: 50%;
-    // border: 5px solid grey;
-    // border: 2px solid #ba8a2a;
     background-color: #0a0b0c;
     margin: 5px;
   }
@@ -226,8 +253,10 @@
 }
 .win{
   position: absolute;
-  top: 35%;
-  left: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
   background-color: #313131;
   -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
@@ -239,21 +268,24 @@
     align-items: center;
     padding: 10px;
 
-  .moves{
-    color: #0a0b0c;
-    font-size: 1.5em;
-    text-align: center;
+    .moves{
+      color: #0a0b0c;
+      font-size: 1.5em;
+      text-align: center;
+    }
+    .my-btn{
+      background-color: greenyellow;
+      color: #0a0b0c;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin: 5px;
+    }
   }
-  .my-btn{
-    background-color: greenyellow;
-    color: #0a0b0c;
-    font-weight: bold;
-    font-size: 1.2em;
-    margin: 5px;
-
-  }
-  }
-  
 }
+.hide{
+      position: absolute !important;
+      top: 14%;
+      left: 17%;
+    }
 
 </style>

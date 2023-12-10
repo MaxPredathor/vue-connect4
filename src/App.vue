@@ -101,12 +101,43 @@
         }    
       },
       gameWin(){
+        // Check horizontally
         for(let i = 0; i < this.rows; i++){
           for(let j = 0; j <= this.cols - 4; j++){
             const disk = this.biArray[i][j]
             if(disk !== null && disk === this.biArray[i][j + 1] && disk === this.biArray[i][j + 2] && disk === this.biArray[i][j + 3]){
             this.gameWinner = disk
             this.endGame()  
+            }
+          }
+        }
+        // Check vertically
+        for (let x = 0; x < this.cols; x++) {
+          for (let y = 0; y <= this.rows - 4; y++) {
+            const disk = this.biArray[y][x];
+            if (disk !== null && disk === this.biArray[y + 1][x] && disk === this.biArray[y + 2][x] && disk === this.biArray[y + 3][x]) {
+              this.gameWinner = disk
+              this.endGame()
+            }
+          }
+        }
+         // Check diagonally (top-left to bottom-right)
+        for (let z = 0; z <= this.rows - 4; z++) {
+          for (let c = 0; c <= this.cols - 4; c++) {
+            const disk = this.biArray[z][c];
+            if (disk !== null && disk === this.biArray[z + 1][c + 1] && disk === this.biArray[z + 2][c + 2] && disk === this.biArray[z + 3][c + 3]) {
+              this.gameWinner = disk
+              this.endGame()
+            }
+          }
+        }
+        // Check diagonally (top-right to bottom-left)
+        for (let b = 0; b <= this.rows - 4; b++) {
+          for (let v = this.cols - 1; v >= 3; v--) {
+            const disk = this.biArray[b][v];
+            if (disk !== null && disk === this.biArray[b + 1][v - 1] && disk === this.biArray[b + 2][v - 2] && disk === this.biArray[b + 3][v - 3]) {
+              this.gameWinner = disk
+              this.endGame()
             }
           }
         }
@@ -125,7 +156,6 @@
     },
     created(){
       this.arrayCreation()
-      
     },
   }
 </script>

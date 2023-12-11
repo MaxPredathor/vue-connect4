@@ -44,7 +44,7 @@
         <div class="col-12 my-div d-flex justify-content-center">
           <div v-for="(rows, rowsIndex) in biArray" :key="rowsIndex">
             <div class="disk" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="insertDisk(rowsIndex, colsIndex), gameWin()"
-             :class="{'disk-blue': cols === 1, 'disk-red': cols === 0, 'disabled': gameEnd }" ></div>
+             :class="{'disk-blue': cols === 1 || cols === 3, 'disk-red': cols === 0 || cols === 2, 'disabled': gameEnd }" ><i v-show="gameEnd && (cols === 3 || cols === 2)" class="fa-regular fa-star text-warning position-absolute"></i></div>
           </div>
         </div>
       </div>  
@@ -130,23 +130,25 @@
        * If a player has won, the gameEnd property is set to true.
        */
       gameWin(){
-        // Check horizontally
+        // Check vertically
         for(let i = 0; i < this.rows; i++){
           for(let j = 0; j <= this.cols - 4; j++){
             const disk = this.biArray[i][j]
             if(disk !== null && disk === this.biArray[i][j + 1] && disk === this.biArray[i][j + 2] && disk === this.biArray[i][j + 3]){
             this.gameWinner = disk
-            this.endGame()  
+            this.endGame()
+            this.starChecker(disk, this.biArray[i][j + 1], this.biArray[i][j + 2], this.biArray[i][j + 3])
             }
           }
         }
-        // Check vertically
+        // Check horizontally
         for (let x = 0; x < this.cols; x++) {
           for (let y = 0; y <= this.rows - 4; y++) {
             const disk = this.biArray[y][x];
             if (disk !== null && disk === this.biArray[y + 1][x] && disk === this.biArray[y + 2][x] && disk === this.biArray[y + 3][x]) {
               this.gameWinner = disk
               this.endGame()
+              this.starChecker(disk, this.biArray[y + 1][x], this.biArray[y + 2][x], this.biArray[y + 3][x])
             }
           }
         }
@@ -157,6 +159,7 @@
             if (disk !== null && disk === this.biArray[z + 1][c + 1] && disk === this.biArray[z + 2][c + 2] && disk === this.biArray[z + 3][c + 3]) {
               this.gameWinner = disk
               this.endGame()
+              this.starChecker(disk, this.biArray[z + 1][c + 1], this.biArray[z + 2][c + 2], this.biArray[z + 3][c + 3])
             }
           }
         }
@@ -167,6 +170,7 @@
             if (disk !== null && disk === this.biArray[b + 1][v - 1] && disk === this.biArray[b + 2][v - 2] && disk === this.biArray[b + 3][v - 3]) {
               this.gameWinner = disk
               this.endGame()
+              this.starChecker(disk, this.biArray[b + 1][v - 1], this.biArray[b + 2][v - 2], this.biArray[b + 3][v - 3])
             }
           }
         }
@@ -176,6 +180,24 @@
           this.gameWinner = 3
         }
       },
+      starChecker(a, b, c, d){
+        if(this.gameWinner === 1){
+          a = 3
+          b = 3
+          c = 3
+          d = 3
+        }else{
+          a = 2
+          b = 2
+          c = 2
+          d = 2
+        }
+        console.log(this.biArray)
+      },
+      /** 
+       * End the game.
+       * Count the number of wins for each player.
+       */
       endGame(){
         this.gameEnd = true
         if(this.gameWinner === 1){
@@ -184,9 +206,7 @@
           this.redWinCounter++
         }
       },
-      /**
-       * Reset the game.
-       */
+      // Reset the game.
       reset(){
         this.arrayCreation()
         this.gameEnd = false

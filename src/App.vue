@@ -14,7 +14,7 @@
         <p>{{ redWinCounter }} Wins</p>
       </div>
       <div class="win" :class="{'d-none': hide}" v-show="gameEnd">
-        <h1 class="text-success fw-bold p-2">Congratulatios!</h1>
+        <h1 class="text-success fw-bold p-2">Congratulations!</h1>
         <div v-if="gameWinner === 1">
           <h1 class="text-center" style="color:rgb(14, 14, 140)">Blue Wins</h1>
           <p class="moves">With {{blueCounter}} Moves</p>
@@ -44,7 +44,7 @@
         <div class="col-12 my-div d-flex justify-content-center">
           <div v-for="(rows, rowsIndex) in biArray" :key="rowsIndex">
             <div class="disk" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="insertDisk(rowsIndex, colsIndex), gameWin()"
-             :class="{'disk-blue': cols === 1 || cols === 3, 'disk-red': cols === 0 || cols === 2, 'disabled': gameEnd }" ><i v-show="gameEnd && (cols === 3 || cols === 2)" class="fa-regular fa-star text-warning position-absolute"></i></div>
+             :class="{'disk-blue': cols === 1 || cols === 3, 'disk-red': cols === 0 || cols === 2, 'disabled': gameEnd }" ><i v-show="gameEnd && (cols === 3 || cols === 2)" class="fa-solid fa-star text-warning star"></i></div>
           </div>
         </div>
       </div>  
@@ -135,9 +135,19 @@
           for(let j = 0; j <= this.cols - 4; j++){
             const disk = this.biArray[i][j]
             if(disk !== null && disk === this.biArray[i][j + 1] && disk === this.biArray[i][j + 2] && disk === this.biArray[i][j + 3]){
-            this.gameWinner = disk
-            this.endGame()
-            this.starChecker(disk, this.biArray[i][j + 1], this.biArray[i][j + 2], this.biArray[i][j + 3])
+              this.gameWinner = disk
+              this.endGame()
+              if(this.gameWinner === 1){
+                this.biArray[i][j] = 3
+                this.biArray[i][j + 1] = 3
+                this.biArray[i][j + 2] = 3
+                this.biArray[i][j + 3] = 3
+              }else{
+                this.biArray[i][j] = 2
+                this.biArray[i][j + 1] = 2
+                this.biArray[i][j + 2] = 2
+                this.biArray[i][j + 3] = 2
+              }
             }
           }
         }
@@ -148,7 +158,17 @@
             if (disk !== null && disk === this.biArray[y + 1][x] && disk === this.biArray[y + 2][x] && disk === this.biArray[y + 3][x]) {
               this.gameWinner = disk
               this.endGame()
-              this.starChecker(disk, this.biArray[y + 1][x], this.biArray[y + 2][x], this.biArray[y + 3][x])
+              if(this.gameWinner === 1){
+                this.biArray[y][x] = 3
+                this.biArray[y + 1][x] = 3
+                this.biArray[y + 2][x] = 3
+                this.biArray[y + 3][x] = 3
+              }else{
+                this.biArray[y][x] = 2
+                this.biArray[y + 1][x] = 2
+                this.biArray[y + 2][x] = 2
+                this.biArray[y + 3][x] = 2
+              }
             }
           }
         }
@@ -159,7 +179,17 @@
             if (disk !== null && disk === this.biArray[z + 1][c + 1] && disk === this.biArray[z + 2][c + 2] && disk === this.biArray[z + 3][c + 3]) {
               this.gameWinner = disk
               this.endGame()
-              this.starChecker(disk, this.biArray[z + 1][c + 1], this.biArray[z + 2][c + 2], this.biArray[z + 3][c + 3])
+              if(this.gameWinner === 1){
+                this.biArray[z][c] = 3
+                this.biArray[z + 1][c + 1] = 3
+                this.biArray[z + 2][c + 2] = 3
+                this.biArray[z + 3][c + 3] = 3
+              }else{
+                this.biArray[z][c] = 2
+                this.biArray[z + 1][c + 1] = 2
+                this.biArray[z + 2][c + 2] = 2
+                this.biArray[z + 3][c + 3] = 2
+              }
             }
           }
         }
@@ -170,7 +200,17 @@
             if (disk !== null && disk === this.biArray[b + 1][v - 1] && disk === this.biArray[b + 2][v - 2] && disk === this.biArray[b + 3][v - 3]) {
               this.gameWinner = disk
               this.endGame()
-              this.starChecker(disk, this.biArray[b + 1][v - 1], this.biArray[b + 2][v - 2], this.biArray[b + 3][v - 3])
+              if(this.gameWinner === 1){
+                this.biArray[b][v] = 3
+                this.biArray[b + 1][v - 1] = 3
+                this.biArray[b + 2][v - 2] = 3
+                this.biArray[b + 3][v - 3] = 3
+              }else{
+                this.biArray[b][v] = 2
+                this.biArray[b + 1][v - 1] = 2
+                this.biArray[b + 2][v - 2] = 2
+                this.biArray[b + 3][v - 3] = 2
+              }
             }
           }
         }
@@ -179,20 +219,6 @@
           this.endGame()
           this.gameWinner = 3
         }
-      },
-      starChecker(a, b, c, d){
-        if(this.gameWinner === 1){
-          a = 3
-          b = 3
-          c = 3
-          d = 3
-        }else{
-          a = 2
-          b = 2
-          c = 2
-          d = 2
-        }
-        console.log(this.biArray)
       },
       /** 
        * End the game.
@@ -239,6 +265,7 @@
     border-radius: 50%;
     background-color: #0a0b0c;
     margin: 5px;
+    position: relative;
   }
 .disk-blue{
   width: 75px;
@@ -292,6 +319,7 @@
   transform: translate(-50%, -50%);
   padding: 20px;
   background-color: #313131;
+  z-index: 100;
   -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
   transition: all 1s ease;
@@ -367,5 +395,11 @@
   color: #0a0b0c;
   -webkit-text-stroke-width: 0.3px;
   -webkit-text-stroke-color: white;
+}
+.star{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

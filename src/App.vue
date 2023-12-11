@@ -21,8 +21,15 @@
           <div>
             <button class="btn my-btn" @click="reset">Play Again</button>
             <button class="btn btn-dark text-light" @click="hide = true">Hide</button>
+          </div>         
+        </div>
+        <div v-else-if="gameWinner === 3">
+          <h1 class="text-center text-warning">Game Tie</h1>
+          <p class="moves">With {{redCounter + blueCounter}} Moves</p>
+          <div>
+            <button class="btn my-btn" @click="reset">Play Again</button>
+            <button class="btn btn-dark text-light" @click="hide = true">Hide</button>
           </div>
-          
         </div>
         <div v-else>
           <h1 class="text-center" style="color:rgb(175, 24, 24)">Red Wins</h1>
@@ -163,6 +170,11 @@
             }
           }
         }
+        // Check if the game is a draw
+        if(this.blueCounter + this.redCounter === this.rows * this.cols){
+          this.endGame()
+          this.gameWinner = 3
+        }
       },
       endGame(){
         this.gameEnd = true
@@ -295,6 +307,8 @@
   top: 2%;
   color: white;
   padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   background-color: #313131;
   font-weight: bold;
   -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
@@ -311,6 +325,8 @@
   top: 2%;
   color: white;
   padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   background-color: #313131;
   font-weight: bold;
   -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 

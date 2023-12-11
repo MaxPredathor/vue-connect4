@@ -43,7 +43,7 @@
       <div class="row justify-content-center">
         <div class="col-12 my-div d-flex justify-content-center">
           <div v-for="(rows, rowsIndex) in biArray" :key="rowsIndex">
-            <div class="disk" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="insertDisk(rowsIndex, colsIndex), gameWin()"
+            <div class="disk" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="insertDisk(rowsIndex, colsIndex), playSound(), gameWin()"
              :class="{'disk-blue': cols === 1 || cols === 3, 'disk-red': cols === 0 || cols === 2, 'disabled': gameEnd }" ><i v-show="gameEnd && (cols === 3 || cols === 2)" class="fa-solid fa-star text-warning star"></i></div>
           </div>
         </div>
@@ -80,6 +80,7 @@
         hide: false,
         blueWinCounter: 0,
         redWinCounter: 0,
+        diskSound: new Audio('../images/Disk-Sound.mp3')
       }
     },
     methods:{
@@ -124,6 +125,9 @@
             this.redCounter++
           }
         }    
+      },
+      playSound(){
+        this.diskSound.play()
       },
       /**
        * Check (vertically, horizontally and diagonally) if a player has won the game.

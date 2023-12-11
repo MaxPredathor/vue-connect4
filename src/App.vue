@@ -5,6 +5,14 @@
         <span style="color:rgb(14, 14, 140)">Conn</span><span style="color:rgb(175, 24, 24)">ect </span><span style="color: #0a0b0c;">4</span>
       </h1>
       <button class="btn btn-dark hide text-light" v-show="hide" @click="hide = false">Show</button>
+      <div class="blue-score">
+        <h4>Blue Score:</h4>
+        <p>{{ blueWinCounter }} Wins</p>
+      </div>
+      <div class="red-score">
+        <h4>Red Score:</h4>
+        <p>{{ redWinCounter }} Wins</p>
+      </div>
       <div class="win" :class="{'d-none': hide}" v-show="gameEnd">
         <h1 class="text-success fw-bold p-2">Congratulatios!</h1>
         <div v-if="gameWinner === 1">
@@ -63,6 +71,8 @@
         blueCounter: 0,
         redCounter: 0,
         hide: false,
+        blueWinCounter: 0,
+        redWinCounter: 0,
       }
     },
     methods:{
@@ -92,23 +102,10 @@
           }
         }
         this.redBlueSwitch = !this.redBlueSwitch;
-        // if(this.biArray[x][this.biArray[x].length - 1] === null){
-        //   this.biArray[x][this.biArray[x].length - 1] = z
-        // }else if(this.biArray[x][this.biArray[x].length - 2] === null){
-        //   this.biArray[x][this.biArray[x].length - 2] = z
-        // }else if(this.biArray[x][this.biArray[x].length - 3] === null){
-        //   this.biArray[x][this.biArray[x].length - 3] = z
-        // }else if(this.biArray[x][this.biArray[x].length - 4] === null){
-        //   this.biArray[x][this.biArray[x].length - 4] = z
-        // }else if(this.biArray[x][this.biArray[x].length - 5] === null){
-        //   this.biArray[x][this.biArray[x].length - 5] = z
-        // }else if(this.biArray[x][this.biArray[x].length - 6] === null){
-        //   this.biArray[x][this.biArray[x].length - 6] = z
-        // }
-        // this.redBlueSwitch = !this.redBlueSwitch  
       },
       /**
        * * Insert a disk into the game board at the specified position.
+       * * If the position is already occupied, the disk is not inserted.
        */
       insertDisk(x, y){
         if(this.biArray[x][y] !== 1 && this.biArray[x][y] !== 0){
@@ -169,6 +166,11 @@
       },
       endGame(){
         this.gameEnd = true
+        if(this.gameWinner === 1){
+          this.blueWinCounter++
+        }else{
+          this.redWinCounter++
+        }
       },
       /**
        * Reset the game.
@@ -286,6 +288,37 @@
       position: absolute !important;
       top: 14%;
       left: 17%;
-    }
+}
+.blue-score{
+  position: absolute;
+  left: 0;
+  top: 2%;
+  color: white;
+  padding: 10px;
+  background-color: #313131;
+  font-weight: bold;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
 
+  h4{
+    font-size: 1.5em;
+    color: rgb(14, 14, 140);
+  }
+}
+.red-score{
+  position: absolute;
+  right: 0;
+  top: 2%;
+  color: white;
+  padding: 10px;
+  background-color: #313131;
+  font-weight: bold;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+
+  h4{
+    font-size: 1.5em;
+    color: rgb(175, 24, 24);
+  }
+}
 </style>

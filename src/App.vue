@@ -2,7 +2,7 @@
   <main>
     <div class="container position-relative">
       <h1 class="text-center fw-bold mt-5" style="font-size: 3.5em;">
-        <span style="color:rgb(14, 14, 140)">Conn</span><span style="color:rgb(175, 24, 24)">ect </span><span style="color: #0a0b0c;">4</span>
+        <span style="color:rgb(14, 14, 140)">Conn</span><span style="color:rgb(175, 24, 24)">ect </span><span id="four">4</span>
       </h1>
       <button class="btn btn-dark hide text-light" v-show="hide" @click="hide = false">Show</button>
       <div class="blue-score">
@@ -318,6 +318,9 @@
     font-size: 1.5em;
     color: rgb(14, 14, 140);
   }
+  p{
+    text-align: center;
+  }
 }
 .red-score{
   position: absolute;
@@ -336,5 +339,13 @@
     font-size: 1.5em;
     color: rgb(175, 24, 24);
   }
+  p{
+    text-align: center;
+  }
+}
+#four{
+  color: #0a0b0c;
+  -webkit-text-stroke-width: 0.3px;
+  -webkit-text-stroke-color: white;
 }
 </style>

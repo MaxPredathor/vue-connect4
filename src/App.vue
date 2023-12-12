@@ -45,7 +45,7 @@
         <div class="col-12 my-div d-flex justify-content-center">
           <div class="my-rows" v-for="(rows, rowsIndex) in biArray" :class="{'pulse': gameEnd === false}" @mouseenter="previewVerticalCheck(rowsIndex)" @mouseleave="removePreview(rowsIndex)" :key="rowsIndex">
             <div class="disk" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="insertDisk(rowsIndex, colsIndex), previewVerticalCheck(rowsIndex), playSound(), gameWin()"
-             :class="{'disk-blue': cols === 1 || cols === 3, 'disk-red': cols === 0 || cols === 2, 'disabled': gameEnd || clicked || cols === 1 || cols === 0, 'disk-blue-preview': cols === 5 && redBlueSwitch, 'disk-red-preview': cols === 5 && redBlueSwitch === false}" >
+             :class="{'disk-blue': cols === 1 || cols === 3, 'disk-red': cols === 0 || cols === 2, 'disabled': gameEnd || clicked || cols === 1 || cols === 0, 'disk-blue-preview': cols === 5 && redBlueSwitch && gameEnd === false, 'disk-red-preview': cols === 5 && redBlueSwitch === false && gameEnd === false}" >
              <i v-show="gameEnd && (cols === 3 || cols === 2)" class="fa-solid fa-star text-warning star"></i>
             </div>
           </div>
@@ -100,6 +100,9 @@
           }
         }
       },
+      /*
+      *
+      */
       previewVerticalCheck(x){
         for (let i = this.biArray[x].length - 1; i >= 0; i--) {
           if (this.biArray[x][i] === null) {
@@ -109,6 +112,9 @@
           }
         }
       },
+      /*
+      * 
+      */
       removePreview(x){
         for (let i = this.biArray[x].length - 1; i >= 0; i--) {
           if (this.biArray[x][i] === 5) {

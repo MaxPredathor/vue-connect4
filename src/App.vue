@@ -42,7 +42,7 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-12 my-div d-flex justify-content-center">
-          <div v-for="(rows, rowsIndex) in biArray" :key="rowsIndex">
+          <div class="my-rows" v-for="(rows, rowsIndex) in biArray" :key="rowsIndex">
             <div class="disk" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="insertDisk(rowsIndex, colsIndex), playSound(), gameWin()"
              :class="{'disk-blue': cols === 1 || cols === 3, 'disk-red': cols === 0 || cols === 2, 'disabled': gameEnd }" ><i v-show="gameEnd && (cols === 3 || cols === 2)" class="fa-solid fa-star text-warning star"></i></div>
           </div>
@@ -406,4 +406,25 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.my-rows{
+  padding: 5px 2px;
+  border-radius: 1em;
+
+  &:hover{
+    animation-name: pulse;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+}
+@keyframes pulse {
+  0% {
+    background-color: rgb(79, 149, 79);
+  }
+  50% {
+    background-color: rgb(158, 210, 158);
+  }
+  100% {
+    background-color: rgb(79, 149, 79);
+  }
+} 
 </style>

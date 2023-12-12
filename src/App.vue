@@ -44,7 +44,7 @@
         <div class="col-12 my-div d-flex justify-content-center">
           <div class="my-rows" v-for="(rows, rowsIndex) in biArray" :key="rowsIndex">
             <div class="disk" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="insertDisk(rowsIndex, colsIndex), playSound(), gameWin()"
-             :class="{'disk-blue': cols === 1 || cols === 3, 'disk-red': cols === 0 || cols === 2, 'disabled': gameEnd }" ><i v-show="gameEnd && (cols === 3 || cols === 2)" class="fa-solid fa-star text-warning star"></i></div>
+             :class="{'disk-blue': cols === 1 || cols === 3, 'disk-red': cols === 0 || cols === 2, 'disabled': gameEnd, 'disabled': clicked }" ><i v-show="gameEnd && (cols === 3 || cols === 2)" class="fa-solid fa-star text-warning star"></i></div>
           </div>
         </div>
       </div>  
@@ -74,6 +74,7 @@
         biArray: [],
         redBlueSwitch: true,
         gameEnd: false,
+        clicked: false,
         gameWinner: null,
         blueCounter: 0,
         redCounter: 0,
@@ -116,6 +117,10 @@
        * * If the position is already occupied, the disk is not inserted.
        */
       insertDisk(x, y){
+        this.clicked = true
+        setTimeout(() => {
+          this.clicked = false
+        }, 450)
         if(this.biArray[x][y] !== 1 && this.biArray[x][y] !== 0){
           if(this.redBlueSwitch){
             this.diskVerticalCheck(x, 1)
@@ -259,7 +264,7 @@
   background-color: #313131;
   // border-radius: 1.5em;
   margin: 40px 0;
-  padding: 20px;
+  padding: 10px;
   -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
 }
@@ -411,9 +416,7 @@
   border-radius: 1em;
 
   &:hover{
-    animation-name: pulse;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
+    animation: pulse 2s infinite;
   }
 }
 @keyframes pulse {

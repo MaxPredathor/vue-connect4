@@ -14,7 +14,8 @@
         <p>{{ redWinCounter }} Wins</p>
       </div>
       <div class="win" :class="{'d-none': hide}" v-show="gameEnd">
-        <h1 class="text-success fw-bold p-2">Congratulations!</h1>
+        <h1 v-if="gameWinner === 1 || gameWinner === 0" class="text-success fw-bold p-2">Congratulations!</h1>
+        <h1 v-else class="text-success fw-bold p-2">Unlucky!</h1>
         <div v-if="gameWinner === 1">
           <h1 class="text-center" style="color:rgb(14, 14, 140)">Blue Wins</h1>
           <p class="moves">With {{blueCounter}} Moves</p>
@@ -44,7 +45,7 @@
         <div class="col-12 my-div d-flex justify-content-center">
           <div class="my-rows" v-for="(rows, rowsIndex) in biArray" :class="{'pulse': gameEnd === false}" :key="rowsIndex">
             <div class="disk" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="insertDisk(rowsIndex, colsIndex), playSound(), gameWin()"
-             :class="{'disk-blue': cols === 1 || cols === 3, 'disk-red': cols === 0 || cols === 2, 'disabled': gameEnd || clicked }" >
+             :class="{'disk-blue': cols === 1 || cols === 3, 'disk-red': cols === 0 || cols === 2, 'disabled': gameEnd || clicked || cols === 1 || cols === 0 }" >
              <i v-show="gameEnd && (cols === 3 || cols === 2)" class="fa-solid fa-star text-warning star"></i></div>
           </div>
         </div>

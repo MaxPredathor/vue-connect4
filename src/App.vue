@@ -43,10 +43,11 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-12 my-div d-flex justify-content-center">
-          <div class="my-rows" v-for="(rows, rowsIndex) in biArray" :class="{'pulse': gameEnd === false}" :key="rowsIndex">
-            <div class="disk" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="insertDisk(rowsIndex, colsIndex), playSound(), gameWin()"
-             :class="{'disk-blue': cols === 1 || cols === 3, 'disk-red': cols === 0 || cols === 2, 'disabled': gameEnd || clicked || cols === 1 || cols === 0 }" >
-             <i v-show="gameEnd && (cols === 3 || cols === 2)" class="fa-solid fa-star text-warning star"></i></div>
+          <div class="my-rows" v-for="(rows, rowsIndex) in biArray" :class="{'pulse': gameEnd === false}" @mouseenter="previewVerticalCheck(rowsIndex)" @mouseleave="removePreview(rowsIndex)" :key="rowsIndex">
+            <div class="disk" v-for="(cols, colsIndex) in rows" :key="colsIndex" @click="insertDisk(rowsIndex, colsIndex), previewVerticalCheck(rowsIndex), playSound(), gameWin()"
+             :class="{'disk-blue': cols === 1 || cols === 3, 'disk-red': cols === 0 || cols === 2, 'disabled': gameEnd || clicked || cols === 1 || cols === 0, 'disk-blue-preview': cols === 5 && redBlueSwitch, 'disk-red-preview': cols === 5 && redBlueSwitch === false}" >
+             <i v-show="gameEnd && (cols === 3 || cols === 2)" class="fa-solid fa-star text-warning star"></i>
+            </div>
           </div>
         </div>
       </div>  
@@ -98,7 +99,24 @@
             this.biArray[i][j] = null
           }
         }
-        console.log(this.biArray)
+      },
+      previewVerticalCheck(x){
+        for (let i = this.biArray[x].length - 1; i >= 0; i--) {
+          if (this.biArray[x][i] === null) {
+            console.log(this.biArray[x][i])
+            this.biArray[x][i] = 5
+            break;
+          }
+        }
+      },
+      removePreview(x){
+        for (let i = this.biArray[x].length - 1; i >= 0; i--) {
+          if (this.biArray[x][i] === 5) {
+            console.log(this.biArray[x][i])
+            this.biArray[x][i] = null
+            break;
+          }
+        }
       },
       /**
        Adds the given value to the last available slot in the specified column of the bi-dimensional array.
@@ -107,7 +125,7 @@
        */
       diskVerticalCheck(x, z){
         for (let i = this.biArray[x].length - 1; i >= 0; i--) {
-          if (this.biArray[x][i] === null) {
+          if (this.biArray[x][i] === null || this.biArray[x][i] === 5) {
             this.biArray[x][i] = z;
             break;
           }
@@ -418,6 +436,24 @@
   border-radius: 1em;
 
 }
+.disk-blue-preview{
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 5px solid rgb(5, 5, 68);
+  background-color: rgb(14, 14, 140);
+  margin: 5px;
+  opacity: 50%;
+}
+.disk-red-preview{
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 5px solid rgb(72, 4, 4);
+  background-color: rgb(175, 24, 24);
+  margin: 5px;
+  opacity: 50%;
+}
 .pulse{
 
   &:hover{
@@ -434,5 +470,5 @@
   100% {
     background-color: rgb(79, 149, 79);
   }
-} 
+}
 </style>

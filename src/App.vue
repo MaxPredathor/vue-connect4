@@ -1,18 +1,20 @@
 <template>
   <main>
     <div class="container position-relative">
-      <h1 class="text-center fw-bold mt-5" style="font-size: 3.5em;">
-        <span style="color:rgb(14, 14, 140)">Conn</span><span style="color:rgb(175, 24, 24)">ect </span><span id="four">4</span>
-      </h1>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="blue-score">
+          <h4>Blue Score:</h4>
+          <p>{{ blueWinCounter }} Wins</p>
+        </div>
+        <h1 class="text-center fw-bold mt-5" style="font-size: 3.5em;">
+          <span style="color:rgb(14, 14, 140)">Conn</span><span style="color:rgb(175, 24, 24)">ect </span><span id="four">4</span>
+        </h1>
+        <div class="red-score">
+          <h4>Red Score:</h4>
+          <p>{{ redWinCounter }} Wins</p>
+        </div>
+      </div>
       <button class="btn btn-dark hide text-light" v-show="hide" @click="hide = false">Show</button>
-      <div class="blue-score">
-        <h4>Blue Score:</h4>
-        <p>{{ blueWinCounter }} Wins</p>
-      </div>
-      <div class="red-score">
-        <h4>Red Score:</h4>
-        <p>{{ redWinCounter }} Wins</p>
-      </div>
       <div class="win" :class="{'d-none': hide}" v-show="gameEnd">
         <h1 v-if="gameWinner === 1 || gameWinner === 0" class="text-success fw-bold p-2">Congratulations!</h1>
         <h1 v-else class="text-success fw-bold p-2">Unlucky!</h1>
@@ -146,7 +148,7 @@
         this.clicked = true
         setTimeout(() => {
           this.clicked = false
-        }, 450)
+        }, 470)
         if(this.biArray[x][y] !== 1 && this.biArray[x][y] !== 0){
           if(this.redBlueSwitch){
             this.diskVerticalCheck(x, 1)
@@ -285,10 +287,38 @@
 </script>
 
 <style lang="scss" scoped>
+@mixin yellowishBorder {
+  border: 3px solid #dfbc9a;
+  border-radius: 0.5em;
+  position: relative;
+}
+@mixin beforeBorder{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid black;
+  border-radius: 0.4em;
+}
+@mixin afterBorder{
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-top: 2px solid #f78a06;
+  border-left: 2px solid #f78a06;
+  border-bottom: 2px solid #875626;
+  border-right: 2px solid #875626;
+  border-radius: 0.6em;
+  outline: 2px solid black;
+}
 .my-div{
   width: 55%;
   background-color: #313131;
-  // border-radius: 1.5em;
   margin: 40px 0;
   padding: 10px;
   -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
@@ -338,11 +368,19 @@
 }
 .turnCard{
   width: 22%;
+  @include yellowishBorder;
   background-color: #313131;
   margin: 40px 0;
   padding: 20px;
   -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+
+  &:before{
+    @include beforeBorder;
+  }
+  &:after{
+    @include afterBorder;
+  }
 }
 .disabled{
   pointer-events: none;
@@ -385,9 +423,7 @@
       left: 17%;
 }
 .blue-score{
-  position: absolute;
-  left: 0;
-  top: 2%;
+  margin-top: 20px;
   color: white;
   padding: 10px;
   padding-left: 20px;
@@ -396,6 +432,15 @@
   font-weight: bold;
   -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+  @include yellowishBorder;
+
+  &:before{
+    @include beforeBorder;
+  }
+  
+  &:after{
+    @include afterBorder;
+  }
 
   h4{
     font-size: 1.5em;
@@ -406,9 +451,7 @@
   }
 }
 .red-score{
-  position: absolute;
-  right: 0;
-  top: 2%;
+  margin-top: 20px;
   color: white;
   padding: 10px;
   padding-left: 20px;
@@ -417,6 +460,15 @@
   font-weight: bold;
   -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+  @include yellowishBorder;
+
+  &:before{
+    @include beforeBorder;
+  }
+  
+  &:after{
+    @include afterBorder;
+  }
 
   h4{
     font-size: 1.5em;

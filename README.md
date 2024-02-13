@@ -1,29 +1,32 @@
-# .
+# Connect 4
 
-This template should help get you started developing with Vue 3 in Vite.
+Questo progetto è una versione del classico gioco "Connect 4" implementata utilizzando Vue.js. Consiste nel connettere quattro pedine dello stesso colore in orizzontale, verticale o diagonale all'interno di una griglia 6x7.
 
-## Recommended IDE Setup
+## Funzionalità
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- Interfaccia utente reattiva che permette ai giocatori di fare mosse in modo intuitivo.
+- Animazioni fluide per migliorare l'esperienza di gioco.
+- Logica di gioco implementata in JavaScript utilizzando array bidimensionali per rappresentare il tabellone di gioco.
+- Possibilità di giocare contro un avversario umano o contro un'intelligenza artificiale (IA) basata su un algoritmo di ricerca minimax.
 
-## Customize configuration
+## Requisiti di installazione
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Prima di iniziare, assicurati di avere Node.js e npm installati sul tuo sistema.
 
-## Project Setup
+1. Clona il repository: Clona questa repo
 
-```sh
-npm install
+2. Installa le dipendenze:
+   
+```bash
+nom install
 ```
 
-### Compile and Hot-Reload for Development
+Dopo aver installato le dipendenze, puoi avviare il gioco con il seguente comando:
 
-```sh
-npm run dev
+```bash
+nom run dev
 ```
 
-### Compile and Minify for Production
+## Crediti
 
-```sh
-npm run build
-```
+Questo progetto è stato creato da [Massimiliano Gilli](https://github.com/MaxPredathor).
